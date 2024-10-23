@@ -294,7 +294,7 @@
                     var quantityMatch = currentMatch.match(new RegExp('"quantity":\\s*{\\s*"value":\\s*(\\d+)', 'i'));
 
                     serviceResults += 'Product/Service ' + (i + 1) + ': <br>';
-                    serviceResults += 'Name: ' + (displayPattern ? displayPattern[1] : 'Not found') + '<br>';
+                    serviceResults += 'Name: ' + (displayMatch ? displayMatch[1] : 'Not found') + '<br>';
                     serviceResults += 'Nphies Code: ' + (NphiesMatch ? NphiesMatch[2] : 'Not found') + '<br>';
                     serviceResults += 'Service Code: ' + (ServiceMatch ? ServiceMatch[2] : 'Not found') + '<br>';
 
