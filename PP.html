@@ -152,7 +152,7 @@
         // Define patterns for Nphies, Service, and Serviced Date
         var NphiesPattern = '"coding":\\s*\\[\\s*{[\\s\\S]+?"system":\\s*"([^"]+)",\\s*"code":\\s*"([^"]+)"';
         var ServicePattern = '"coding":\\s*\\[\\s*{[\\s\\S]+?},\\s*{[\\s\\S]+?"system":\\s*"([^"]+)",\\s*"code":\\s*"([^"]+)"';
-        var ServicedDatePattern1 = '"servicedDate":\\s*"([^"]+)"'; // First pattern for servicedDate
+        var ServicedDatePattern = '"servicedDate":\\s*"([^"]+)"'; // First pattern for servicedDate
 
 
 
@@ -289,7 +289,7 @@
 
                     var displayMatch = currentMatch.match(new RegExp(displayPattern, 'i'));
                     // Try matching servicedDate using the pattern
-                    var ServicedDateMatch1 = currentMatch.match(new RegExp(ServicedDatePattern1, 'i'));
+                    var ServicedDateMatch1 = currentMatch.match(new RegExp(ServicedDatePattern, 'i'));
 
                     var quantityMatch = currentMatch.match(new RegExp('"quantity":\\s*{\\s*"value":\\s*(\\d+)', 'i'));
 
