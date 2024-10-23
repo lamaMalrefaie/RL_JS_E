@@ -294,18 +294,18 @@
                     var quantityMatch = currentMatch.match(new RegExp('"quantity":\\s*{\\s*"value":\\s*(\\d+)', 'i'));
 
                     serviceResults += 'Product/Service ' + (i + 1) + ': <br>';
-                    serviceResults += 'Name: ' + (displayMatch ? displayMatch[1] : 'Not found') + '<br>';
-                    serviceResults += 'Nphies Code: ' + (NphiesMatch ? NphiesMatch[2] : 'Not found') + '<br>';
-                    serviceResults += 'Service Code: ' + (ServiceMatch ? ServiceMatch[2] : 'Not found') + '<br>';
+                    serviceResults += 'Name: ' + (displayMatch ? copyButton(displayMatch[1]) : 'Not found') + '<br>';
+                    serviceResults += 'Nphies Code: ' + (NphiesMatch ? copyButton(NphiesMatch[2]) : 'Not found') + '<br>';
+                    serviceResults += 'Service Code: ' + (ServiceMatch ? copyButton(ServiceMatch[2]) : 'Not found') + '<br>';
 
                     // Handle Serviced Date extraction
                     if (ServicedDateMatch1) {
-                        serviceResults += 'Serviced Date: ' + ServicedDateMatch1[1] + '<br>';
+                        serviceResults += 'Serviced Date: ' + copyButton(ServicedDateMatch1[1]) + '<br>';
                     } else {
                         serviceResults += 'Serviced Date: Not found<br>';
                     }
 
-                    serviceResults += 'Quantity: ' + (quantityMatch ? quantityMatch[1] : 'Not found') + '<br><br>';
+                    serviceResults += 'Quantity: ' + (quantityMatch ? copyButton(quantityMatch[1]) : 'Not found') + '<br><br>';
                 }
             }
 
