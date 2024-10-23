@@ -121,7 +121,6 @@
     </div>
 
     <script>
-        // Function to process JSON and extract servicedDate
         function processJson() {
             var inputText = document.getElementById('inputBox').value;
             try {
@@ -135,7 +134,6 @@
                     }
                 }
 
-                // Call function to handle product or service data
                 processProductOrService(prettyJson, '');
             } catch (e) {
                 document.getElementById('beutiBox').value = 'Invalid JSON: ' + e.message;
@@ -143,20 +141,17 @@
             }
             searchJson(prettyJson);
         }
+
         function clearContent() {
             document.getElementById('inputBox').value = '';
             document.getElementById('beutiBox').value = '';
             document.getElementById('outputBox').innerText = '';
         }
 
-        // Define patterns for Nphies, Service, and Serviced Date
         var NphiesPattern = '"coding":\\s*\\[\\s*{[\\s\\S]+?"system":\\s*"([^"]+)",\\s*"code":\\s*"([^"]+)"';
         var ServicePattern = '"coding":\\s*\\[\\s*{[\\s\\S]+?},\\s*{[\\s\\S]+?"system":\\s*"([^"]+)",\\s*"code":\\s*"([^"]+)"';
-        var ServicedDatePattern = '"servicedDate":\\s*"([^"]+)"'; // First pattern for servicedDate
+        var ServicedDatePattern = '"servicedDate":\\s*"([^"]+)"'; 
 
-
-
-        
         function searchJson(prettyJsonText) {
             try {
                 var jsonObj = JSON.parse(prettyJsonText);
@@ -272,9 +267,8 @@
                 document.getElementById('outputBox').innerText = 'Error parsing JSON: ' + e.message;
             }
 
-            processProductOrService(prettyJsonText, results);
+            processProductOrService(prettyJsonText,'');
         }
-        // Function to process product or service and extract required fields
         function processProductOrService(prettyJsonText, previousResults) {
             var servicePattern = '"productOrService":\\s*{[\\s\\S]+?},[\\s\\S]*?"quantity":\\s*{\\s*"value":\\s*(\\d+)';
             var serviceResults = '';
@@ -288,7 +282,6 @@
                     var ServiceMatch = currentMatch.match(new RegExp(ServicePattern, 'i'));
 
                     var displayMatch = currentMatch.match(new RegExp(displayPattern, 'i'));
-                    // Try matching servicedDate using the pattern
                     var ServicedDateMatch1 = currentMatch.match(new RegExp(ServicedDatePattern, 'i'));
 
                     var quantityMatch = currentMatch.match(new RegExp('"quantity":\\s*{\\s*"value":\\s*(\\d+)', 'i'));
@@ -298,7 +291,6 @@
                     serviceResults += 'Nphies Code: ' + (NphiesMatch ? copyButton(NphiesMatch[2]) : 'Not found') + '<br>';
                     serviceResults += 'Service Code: ' + (ServiceMatch ? copyButton(ServiceMatch[2]) : 'Not found') + '<br>';
 
-                    // Handle Serviced Date extraction
                     if (ServicedDateMatch1) {
                         serviceResults += 'Serviced Date: ' + copyButton(ServicedDateMatch1[1]) + '<br>';
                     } else {
@@ -311,11 +303,11 @@
 
             document.getElementById('outputBox').innerHTML = previousResults + serviceResults;
         }
+
         function copyButton(text) {
             return '<span style="cursor: pointer; text-decoration: underline;" onclick="copyToClipboard(\'' + text + '\')">' + text + '</span>';
         }
 
-        
         function copyToClipboard(text) {
             var dummy = document.createElement("textarea");
             document.body.appendChild(dummy);
@@ -324,12 +316,6 @@
             document.execCommand("copy");
             document.body.removeChild(dummy);
             alert('Copied: ' + text);
-        }
-        // Function to clear all fields
-        function clearContent() {
-            document.getElementById('inputBox').value = '';
-            document.getElementById('beutiBox').value = '';
-            document.getElementById('outputBox').innerText = '';
         }
     </script>
 </body>
