@@ -278,17 +278,34 @@
                     var NphiesPattern = '"coding":\\s*\\[\\s*{[\\s\\S]+?"system":\\s*"([^"]+)",\\s*"code":\\s*"([^"]+)"';
                     var ServicePattern = '"coding":\\s*\\[\\s*{[\\s\\S]+?},\\s*{[\\s\\S]+?"system":\\s*"([^"]+)",\\s*"code":\\s*"([^"]+)"';
                     var servicedDatePattern = '"servicedDate":\\s*"([^"]+)",(?:"servicedPeriod":\\s*{[\\s\\S]+?"start":\\s*"([^"]+)")';
+                                        // First Pattern for Serviced Date (direct)
+                    var ServicedDatePattern1 = '"servicedDate":\\s*"([^"]+)"';
+                    
+                    // Second Pattern for Serviced Date (example for servicedPeriod if applicable)
+                    var ServicedDatePattern2 = '"servicedPeriod":\\s*{[\\s\\S]+?"start":\\s*"([^"]+)"';
+
                     var displayMatch = currentMatch.match(new RegExp(displayPattern, 'i'));
                     var NphiesMatch = currentMatch.match(new RegExp(NphiesPattern, 'i'));
                     var ServiceMatch = currentMatch.match(new RegExp(ServicePattern, 'i'));
-                    var servicedDateMatch = currentMatch.match(new RegExp(servicedDatePattern, 'i'));
-                    var quantityMatch = currentMatch.match(new RegExp('"quantity":\\s*{\\s*"value":\\s*(\\d+)', 'i'));
+                    
+                    // Try the first servicedDate pattern
+                    var ServicedDateMatch1 = currentMatch.match(new RegExp(ServicedDatePattern1, 'i'));
+                    // If first pattern fails, try the second one
+                    var ServicedDateMatch2 = currentMatch.match(new RegExp(ServicedDatePattern2, 'i'));
 
+                    var quantityMatch = currentMatch.match(new RegExp('"quantity":\\s*{\\s*"value":\\s*(\\d+)', 'i'));
                     serviceResults += 'Product/Service ' + (i + 1) + ': <br>';
                     serviceResults += 'Name: ' + (displayMatch ? displayMatch[1] : 'Not found') + '<br>';
                     serviceResults += 'Nphies Code: ' + (NphiesMatch ? copyButton(NphiesMatch[2]) : 'Not found') + '<br>';
                     serviceResults += 'Service Code: ' + (ServiceMatch ? copyButton(ServiceMatch[2]) : 'Not found') + '<br>';
-                    serviceResults += 'Serviced Date: ' + (servicedDateMatch ? copyButton(servicedDateMatch[2]) : 'Not found') + '<br>';
+                                // Handle Serviced Date from either pattern
+                    if (ServicedDateMatch1) {
+                        serviceResults += 'Serviced Date (Pattern 1): ' + ServicedDateMatch1[1] + '<br>';
+                    } else if (ServicedDateMatch2) {
+                        serviceResults += 'Serviced Date (Pattern 2): ' + ServicedDateMatch2[1] + '<br>';
+                    } else {
+                        serviceResults += 'Serviced Date: Not found<br>';
+                    }
                     serviceResults += 'Quantity: ' + (quantityMatch ? quantityMatch[1] : 'Not found') + '<br><br>';
                 }
             }
