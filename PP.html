@@ -108,7 +108,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="title">Claims Json Extractor</div>
+        <div class="title">Rules Library Json Extractor</div>
         <div class="boxes">
             <textarea id="inputBox" class="box" placeholder="Paste your JSON text here"></textarea>
             <div class="arrow-box" onclick="processJson()">
@@ -315,9 +315,12 @@
 
                     serviceResults += '-----------------------------------------------------------------------------------<br>';
                     serviceResults += '<br>Product/Service :' + (i + 1) + ' <br>';
+
                     var displayPattern = '"display":\\s*"([^"]+)"';
                     var nphiesCodePattern = '"productOrService":\\s*{[\\s\\S]*?"coding":\\s*\\[[\\s\\S]*?"code":\\s*"([^"]+)"';
                     var serviceCodePattern = '"productOrService":\\s*{[\\s\\S]*?"coding":\\s*\\[[\\s\\S]+?},\\s*{[\\s\\S]*?"code":\\s*"([^"]+)"';
+                    var servicedPeriodStartPattern = '"servicedPeriod":\\s*{[\\s\\S]*?"start":\\s*"([^"]+)"';
+
                     var quantityPattern = '"quantity":\\s*{\\s*"value":\\s*(\\d+)';
                     var servicedDatePattern = '"servicedDate":\\s*"([^"]+)"';
                     var unitPricePattern = '"unitPrice":\\s*{[\\s\\S]*?"value":\\s*([\\d.]+)';
